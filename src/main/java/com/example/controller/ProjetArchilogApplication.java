@@ -1,4 +1,4 @@
-package com.example.projet_archilog;
+package com.example.controller  ;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
