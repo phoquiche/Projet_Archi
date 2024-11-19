@@ -18,7 +18,7 @@ public class MongoQueries {
 
     private final MongoCollection<Document> collection;
 
-    @Autowired
+
     public MongoQueries() {
         MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
         MongoDatabase mongoDatabase = mongoClient.getDatabase("projet");
