@@ -14,11 +14,11 @@ public class Client {
 
 
 
-    public Object getPrenom() {
+    public String getPrenom() {
         return prenom;
     }
 
-    public Object getNom() {
+    public String getNom() {
         return nom;
     }
 
@@ -37,6 +37,9 @@ public class Client {
 
     public ArrayList<Compte> getComptes() {
         return comptes;
+    }
+    public String toString() {
+        return "Nom: " + nom + " Prenom: " + prenom + " Email: " + email + " Comptes: " + comptes;
     }
 
     public void addCompte(String nomCompte) {

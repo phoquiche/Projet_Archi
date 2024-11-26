@@ -10,6 +10,10 @@ public class ClientsService {
 
     private MongoQueries mongoQueries;
 
+    public ClientsService() {
+        mongoQueries = new MongoQueries();
+    }
+
     public Collection<Client> getAll() {
         return mongoQueries.getAllClients();
     }
@@ -20,6 +24,7 @@ public class ClientsService {
 
     public Client create(String nom, String prenom, String email) {
         Client client = new Client(nom, prenom, email);
+
         if (mongoQueries.clientExists(email)) {
             return null;
         }
