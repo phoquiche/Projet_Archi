@@ -24,13 +24,14 @@ public class ComptesService {
         return false;
     }
 
-    public void addCompte(String email, String nomCompte) {
+    public boolean addCompte(String email, String nomCompte) {
         Client client = mongoQueries.getClient(email);
         client.addCompte(nomCompte);
-        mongoQueries.updateClient(email, client);
+        mongoQueries.addCompte(email, nomCompte);
+        return true;
     }
 
-    public void updateCompte(String email, String nomCompte, HashMap<String, Double> operations) {
+    public void updateCompte(String email, String nomCompte, double operations) {
         Client client = mongoQueries.getClient(email);
         client.updateCompte(nomCompte, operations);
         mongoQueries.updateClient(email, client);

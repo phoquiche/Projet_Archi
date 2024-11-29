@@ -19,8 +19,7 @@ public class PreleveFrais {
             for (Client client : mongoQueries.getAllClients()) {
                 for (Compte compte : client.getComptes()) {
                     if (compte.getMontant() > Frais) {
-                        HashMap<String, Double> operations = new HashMap<>();
-                        operations.put("EUR", -Frais);
+                        double operations = -Frais;
                         comptesService.updateCompte(client.getEmail(), compte.getNom(), operations);
                     }
                 }

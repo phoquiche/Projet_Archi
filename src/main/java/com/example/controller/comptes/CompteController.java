@@ -17,7 +17,7 @@ public class CompteController {
     }
 
     @PutMapping("/{emailClient}/{nomCompte}")
-    public ResponseEntity<String> addCompte(@PathVariable String emailClient, @RequestBody String nomCompte) {
+    public ResponseEntity<String> addCompte(@PathVariable String emailClient, @PathVariable String nomCompte) {
         ComptesService service = new ComptesService();
         if (service.compteExists(emailClient, nomCompte)) {
             return new ResponseEntity<>("Compte already exists", HttpStatus.CONFLICT);

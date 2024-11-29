@@ -52,6 +52,16 @@ public class MongoQueries {
                 .append("comptes", client.getComptes());
         collection.updateOne(new Document("email", oldEmail), new Document("$set", document));
     }
+    public boolean addCompte(String email, String nomCompte) {
+        Document document = collection.find(new Document("email", email)).first();
+        if (document == null) {
+            return false;
+        }
+        ArrayList<Document> comptes = (ArrayList<Document>) document.get("comptes");
+        comptes.add(new Document("nom", nomCompte).append("solde", 0.0));
+        collection.updateOne(new Document("email", email), new Document("$set", new Document("comptes", comptes)));
+        return true;
+    }
 
     public void deleteClient(String email) {
         collection.deleteOne(new Document("email", email));

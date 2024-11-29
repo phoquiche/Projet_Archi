@@ -46,25 +46,12 @@ public class Client {
         comptes.add(new Compte(nomCompte));
     }
 
-    public void updateCompte(String nomCompte, HashMap<String, Double> operations) {
+    public void updateCompte(String nomCompte, double operations) {
         for (Compte compte : comptes) {
             if (compte.getNom().equals(nomCompte)) {
-                for (String operation : operations.keySet()) {
-                    switch (operation) {
-                        case "EUR":
-                            compte.setMontant(compte.getMontant()+operations.get(operation));
-                            break;
-                        case "LIV":
-                            compte.setMontant(compte.getMontant()+operations.get(operation)*0.83);
-                            break;
-                        case "USD":
-                            compte.setMontant(compte.getMontant()+operations.get(operation)*1.06);
-                            break;
-
-
-                    }
-                }
+                compte.setMontant(compte.getMontant() + operations);
             }
         }
+
     }
 }
