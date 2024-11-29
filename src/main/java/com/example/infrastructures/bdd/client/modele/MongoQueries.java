@@ -45,13 +45,12 @@ public class MongoQueries {
         collection.insertOne(document);
     }
 
-    public void updateClient(Client client) {
+    public void updateClient(String oldEmail, Client client) {
         Document document = new Document("nom", client.getNom())
                 .append("prenom", client.getPrenom())
                 .append("email", client.getEmail())
-                .append("id", client.getId().toString())
                 .append("comptes", client.getComptes());
-        collection.updateOne(new Document("email", client.getEmail()), new Document("$set", document));
+        collection.updateOne(new Document("email", oldEmail), new Document("$set", document));
     }
 
     public void deleteClient(String email) {

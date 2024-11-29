@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.controller.clients;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,7 +7,7 @@ import com.example.business.clients.modele.Client;
 import com.example.business.clients.ClientsService;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/clients")
 public class ClientController {
 
     @GetMapping
@@ -20,10 +20,10 @@ public class ClientController {
     public ResponseEntity<String> addClient(@RequestBody Client client) {
         ClientsService service = new ClientsService();
         service.create(client.getNom(), client.getPrenom(), client.getEmail());
-        return new ResponseEntity<>("Client added", HttpStatus.OK);
+        return new ResponseEntity<>( HttpStatus.CREATED);
     }
 
-    @GetMapping("/clients/{email}")
+    @GetMapping("/{email}")
     public ResponseEntity<String> getClient(@PathVariable String email) {
         ClientsService service = new ClientsService();
         if (service.get(email) == null) {
@@ -32,13 +32,22 @@ public class ClientController {
         return new ResponseEntity<>(service.get(email).toString(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/clients/{email}")
+    @DeleteMapping("/{email}")
     public ResponseEntity<String> deleteClient(@PathVariable String email) {
+        ClientsService service = new ClientsService();
+        if (!service.delete(email)) {
+            return new ResponseEntity<>("Client not found", HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>("Client deleted", HttpStatus.OK);
     }
 
-    @PutMapping("/clients/{email}")
-    public ResponseEntity<String> updateClient(@PathVariable String email, @RequestBody String newEmail) {
+    @PatchMapping("/{email}")
+    public ResponseEntity<String> updateClient(@PathVariable String email, @RequestBody Client client){
+        ClientsService service = new ClientsService();
+        if (!service.update(email, client.getNom(), client.getPrenom(), client.getEmail())) {
+            return new ResponseEntity<>("Client not found", HttpStatus.NOT_FOUND);
+        }
+
         return new ResponseEntity<>("Client updated", HttpStatus.OK);
     }
 

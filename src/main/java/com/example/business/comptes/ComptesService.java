@@ -8,7 +8,11 @@ import java.util.HashMap;
 
 public class ComptesService {
 
-    private MongoQueries mongoQueries;
+    private final MongoQueries mongoQueries;
+
+    public ComptesService() {
+        mongoQueries = new MongoQueries();
+    }
 
     public boolean compteExists(String email, String nomCompte) {
         Client client = mongoQueries.getClient(email);
@@ -23,12 +27,12 @@ public class ComptesService {
     public void addCompte(String email, String nomCompte) {
         Client client = mongoQueries.getClient(email);
         client.addCompte(nomCompte);
-        mongoQueries.updateClient(client);
+        mongoQueries.updateClient(email, client);
     }
 
     public void updateCompte(String email, String nomCompte, HashMap<String, Double> operations) {
         Client client = mongoQueries.getClient(email);
         client.updateCompte(nomCompte, operations);
-        mongoQueries.updateClient(client);
+        mongoQueries.updateClient(email, client);
     }
 }

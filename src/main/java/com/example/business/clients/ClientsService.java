@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class ClientsService {
 
-    private MongoQueries mongoQueries;
+    private final MongoQueries mongoQueries;
 
     public ClientsService() {
         mongoQueries = new MongoQueries();
@@ -32,25 +32,36 @@ public class ClientsService {
         return client;
     }
 
-    public void update(String nom, String prenom, String email) {
+    public boolean update(String oldEmail, String nom, String prenom, String email) {
         Client client = new Client(nom, prenom, email);
-        mongoQueries.updateClient(client);
+        if (!mongoQueries.clientExists(oldEmail)) {
+            return false;
+        }
+        if (!mongoQueries.clientExists(email)) {
+            return false;
+        }
+        mongoQueries.updateClient(oldEmail,client);
+        return true;
     }
 
-    public void delete(String email) {
+    public boolean delete(String email) {
+        if (!mongoQueries.clientExists(email)) {
+            return false;
+        }
         mongoQueries.deleteClient(email);
+        return true;
     }
 
     public void addCompte(String email, String nomCompte) {
         Client client = mongoQueries.getClient(email);
         client.addCompte(nomCompte);
-        mongoQueries.updateClient(client);
+        mongoQueries.updateClient(email, client);
     }
 
     public void updateCompte(String email, String nomCompte, HashMap<String, Double> operations) {
         Client client = mongoQueries.getClient(email);
         client.updateCompte(nomCompte, operations);
-        mongoQueries.updateClient(client);
+        mongoQueries.updateClient(email, client);
     }
 
 
