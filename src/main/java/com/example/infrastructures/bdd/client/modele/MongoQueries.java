@@ -99,4 +99,5 @@ public class MongoQueries {
         }
         collection.updateOne(new Document("email", email), new Document("$set", new Document("comptes", comptes)));
     }
+
 }

@@ -20,7 +20,7 @@ public class ClientController {
     public ResponseEntity<String> addClient(@RequestBody Client client) {
         ClientsService service = new ClientsService();
         service.create(client.getNom(), client.getPrenom(), client.getEmail());
-        return new ResponseEntity<>( HttpStatus.CREATED);
+        return new ResponseEntity<>("Client create",HttpStatus.CREATED);
     }
 
     @GetMapping("/{email}")

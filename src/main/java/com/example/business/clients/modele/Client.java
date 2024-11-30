@@ -49,9 +49,12 @@ public class Client {
     public void updateCompte(String nomCompte, double operations) {
         for (Compte compte : comptes) {
             if (compte.getNom().equals(nomCompte)) {
-                compte.setMontant(compte.getMontant() + operations);
+                compte.setSolde(compte.getSolde() + operations);
             }
         }
+    }
+    public void deleteCompte(String nomCompte) {
+        comptes.removeIf(compte -> compte.getNom().equals(nomCompte));
 
     }
 }

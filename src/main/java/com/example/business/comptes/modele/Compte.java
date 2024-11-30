@@ -21,12 +21,12 @@ public class Compte {
         return id;
     }
 
-    public double getMontant() {
+    public double getSolde() {
         return solde;
     }
 
-    public void setMontant(double montant) {
-        this.solde = montant;
+    public void setSolde(double solde) {
+        this.solde = solde;
     }
 
     public String getNom() {
@@ -45,9 +45,6 @@ public class Compte {
         this.devise = devise;
     }
 
-    public double getSolde() {
-        return solde;
-    }
 
     public String toString() {
         return "Nom: " + nom + " Montant: " + solde + " Devise: " + devise;

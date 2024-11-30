@@ -48,4 +48,10 @@ public class ComptesService {
         client.updateCompte(nomCompte, operations);
         mongoQueries.updateCompte(email, nomCompte, operations);
     }
+
+    public void deleteCompte(String email, String nomCompte) {
+        Client client = mongoQueries.getClient(email);
+        client.deleteCompte(nomCompte);
+        mongoQueries.updateClient(email, client);
+    }
 }

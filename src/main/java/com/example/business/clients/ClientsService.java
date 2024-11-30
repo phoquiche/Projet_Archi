@@ -60,6 +60,12 @@ public class ClientsService {
         mongoQueries.updateClient(email, client);
     }
 
+    public void deleteCompte(String email, String nomCompte) {
+        Client client = mongoQueries.getClient(email);
+        client.deleteCompte(nomCompte);
+        mongoQueries.updateClient(email, client);
+    }
+
 
 
 }
