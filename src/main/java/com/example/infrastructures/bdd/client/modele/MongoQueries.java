@@ -1,6 +1,7 @@
 package com.example.infrastructures.bdd.client.modele;
 
 import com.example.business.clients.modele.Client;
+import com.example.business.comptes.modele.Compte;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -70,5 +71,32 @@ public class MongoQueries {
 
     public Collection<Client> getAllClients() {
         return collection.find().map(document -> new Client(document.getString("nom"), document.getString("prenom"), document.getString("email"))).into(new ArrayList<>());
+    }
+
+    public ArrayList<Compte> getComptes(String email) {
+        Document document = collection.find(new Document("email", email)).first();
+        if (document == null) {
+            return null;
+        }
+        ArrayList<Document> comptes = (ArrayList<Document>) document.get("comptes");
+        ArrayList<Compte> comptesList = new ArrayList<>();
+        for (Document compte : comptes) {
+            comptesList.add(new Compte(compte.getString("nom"), compte.getDouble("solde")));
+        }
+        return comptesList;
+    }
+
+    public void updateCompte(String email, String nomCompte, double operations) {
+        Document document = collection.find(new Document("email", email)).first();
+        if (document == null) {
+            return;
+        }
+        ArrayList<Document> comptes = (ArrayList<Document>) document.get("comptes");
+        for (Document compte : comptes) {
+            if (compte.getString("nom").equals(nomCompte)) {
+                compte.put("solde", compte.getDouble("solde") + operations);
+            }
+        }
+        collection.updateOne(new Document("email", email), new Document("$set", new Document("comptes", comptes)));
     }
 }

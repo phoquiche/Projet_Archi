@@ -13,6 +13,10 @@ public class Compte {
         this.nom = nom;
     }
 
+    public Compte(String nom, double solde) {
+        this.nom = nom;
+        this.solde = solde;
+    }
     public UUID getId() {
         return id;
     }
@@ -43,5 +47,9 @@ public class Compte {
 
     public double getSolde() {
         return solde;
+    }
+
+    public String toString() {
+        return "Nom: " + nom + " Montant: " + solde + " Devise: " + devise;
     }
 }

@@ -16,13 +16,33 @@ public class CompteController {
         return new ResponseEntity<>("Welcome to the bank", HttpStatus.OK);
     }
 
+    @GetMapping("/{emailClient}/{nomCompte}")
+    public ResponseEntity<String> getCompte(@PathVariable String emailClient, @PathVariable String nomCompte) {
+        ComptesService service = new ComptesService();
+        if (!service.compteExist(emailClient, nomCompte)) {
+            return new ResponseEntity<>("Compte not found", HttpStatus.NOT_FOUND);
+        }
+        Compte compte = service.getCompte(emailClient, nomCompte);
+        return new ResponseEntity<>(compte.toString(), HttpStatus.OK);
+    }
+
     @PutMapping("/{emailClient}/{nomCompte}")
     public ResponseEntity<String> addCompte(@PathVariable String emailClient, @PathVariable String nomCompte) {
         ComptesService service = new ComptesService();
-        if (service.compteExists(emailClient, nomCompte)) {
+        if (service.compteExist(emailClient, nomCompte)) {
             return new ResponseEntity<>("Compte already exists", HttpStatus.CONFLICT);
         }
         service.addCompte(emailClient, nomCompte);
         return new ResponseEntity<>("Compte added", HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/{emailClient}/{nomCompte}/{operations}")
+    public ResponseEntity<String> updateCompte(@PathVariable String emailClient, @PathVariable String nomCompte, @PathVariable double operations) {
+        ComptesService service = new ComptesService();
+        if (!service.compteExist(emailClient, nomCompte)) {
+            return new ResponseEntity<>("Compte not found", HttpStatus.NOT_FOUND);
+        }
+        service.updateCompte(emailClient, nomCompte, operations);
+        return new ResponseEntity<>("Compte updated", HttpStatus.OK);
     }
 }

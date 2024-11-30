@@ -4,6 +4,7 @@ import com.example.business.clients.modele.Client;
 import com.example.business.comptes.modele.Compte;
 import com.example.infrastructures.bdd.client.modele.MongoQueries;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ComptesService {
@@ -14,14 +15,25 @@ public class ComptesService {
         mongoQueries = new MongoQueries();
     }
 
-    public boolean compteExists(String email, String nomCompte) {
-        Client client = mongoQueries.getClient(email);
-        for (Compte compte : client.getComptes()) {
+
+    public boolean compteExist(String email, String nomCompte) {
+        ArrayList<Compte> comptes = mongoQueries.getComptes(email);
+        for (Compte compte : comptes) {
             if (compte.getNom().equals(nomCompte)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public Compte getCompte(String email, String nomCompte) {
+        ArrayList<Compte> comptes = mongoQueries.getComptes(email);
+        for (Compte compte : comptes) {
+            if (compte.getNom().equals(nomCompte)) {
+                return compte;
+            }
+        }
+        return null;
     }
 
     public boolean addCompte(String email, String nomCompte) {
