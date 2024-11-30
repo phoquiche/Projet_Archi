@@ -46,6 +46,6 @@ public class ComptesService {
     public void updateCompte(String email, String nomCompte, double operations) {
         Client client = mongoQueries.getClient(email);
         client.updateCompte(nomCompte, operations);
-        mongoQueries.updateClient(email, client);
+        mongoQueries.updateCompte(email, nomCompte, operations);
     }
 }
