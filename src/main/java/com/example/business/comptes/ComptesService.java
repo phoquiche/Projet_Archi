@@ -3,9 +3,7 @@ package com.example.business.comptes;
 import com.example.business.clients.modele.Client;
 import com.example.business.comptes.modele.Compte;
 import com.example.infrastructures.bdd.client.modele.MongoQueries;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ComptesService {
 

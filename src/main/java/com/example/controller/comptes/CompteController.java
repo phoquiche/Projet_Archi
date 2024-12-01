@@ -1,7 +1,6 @@
 package com.example.controller.comptes;
 
 import com.example.business.clients.ClientsService;
-import com.example.business.clients.modele.Client;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

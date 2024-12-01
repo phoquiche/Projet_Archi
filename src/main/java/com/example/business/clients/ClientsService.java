@@ -3,8 +3,6 @@ package com.example.business.clients;
 import com.example.business.clients.modele.Client;
 import com.example.infrastructures.bdd.client.modele.MongoQueries;
 
-import java.util.Collection;
-import java.util.HashMap;
 
 public class ClientsService {
 
