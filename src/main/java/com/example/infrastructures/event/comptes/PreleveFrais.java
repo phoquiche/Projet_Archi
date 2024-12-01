@@ -6,15 +6,14 @@ import com.example.infrastructures.bdd.client.modele.MongoQueries;
 
 public class PreleveFrais {
 
-    private double Frais = 12.0;
-
     public void preleveFrais() {
         MongoQueries mongoQueries = new MongoQueries();
         for (Client client : mongoQueries.getAllClients()) {
             for (Compte compte : client.getComptes()) {
                 if (compte.getNom().equals("courant")) {
-                    compte.setSolde(compte.getSolde() - Frais);
-                    mongoQueries.updateCompte(client.getEmail(), compte.getNom(), -Frais);
+                    double frais = 12.0;
+                    compte.setSolde(compte.getSolde() - frais);
+                    mongoQueries.updateCompte(client.getEmail(), compte.getNom(), -frais);
                 }
             }
         }
