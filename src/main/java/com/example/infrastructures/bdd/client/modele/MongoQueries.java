@@ -34,7 +34,13 @@ public class MongoQueries {
         if (document == null) {
             return null;
         }
-        return new Client(document.getString("nom"), document.getString("prenom"), document.getString("email"));
+        ArrayList<Compte> comptes = new ArrayList<>();
+        for (Document compte : (ArrayList<Document>) document.get("comptes")) {
+
+            comptes.add(new Compte(compte.getString("nom"), compte.getDouble("solde")));
+        }
+
+        return new Client(document.getString("nom"), document.getString("prenom"), document.getString("email"), comptes);
     }
 
     public void insertClient(Client client) {

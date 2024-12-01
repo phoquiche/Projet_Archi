@@ -35,10 +35,21 @@ public class Client {
         this.email = email;
     }
 
+    public Client(String nom, String prenom, String email, ArrayList<Compte> comptes) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.comptes.addAll(comptes);
+    }
+
     public ArrayList<Compte> getComptes() {
         return comptes;
     }
     public String toString() {
+        String comptes = "";
+        for (Compte compte : this.comptes) {
+            comptes += compte.toString() + " ";
+        }
         return "Nom: " + nom + " Prenom: " + prenom + " Email: " + email + " Comptes: " + comptes;
     }
 

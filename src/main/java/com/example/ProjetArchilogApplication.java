@@ -13,6 +13,4 @@ public class ProjetArchilogApplication {
     public static void main(String[] args) {
         SpringApplication.run(ProjetArchilogApplication.class, args);
     }
-
-
     }

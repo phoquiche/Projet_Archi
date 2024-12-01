@@ -14,18 +14,19 @@ public class ClientsService {
         mongoQueries = new MongoQueries();
     }
 
-    public Collection<Client> getAll() {
-        return mongoQueries.getAllClients();
-    }
 
     public Client get(String email) {
         return mongoQueries.getClient(email);
     }
 
+    public boolean clientExists(String email) {
+        return mongoQueries.clientExists(email);
+    }
+
     public Client create(String nom, String prenom, String email) {
         Client client = new Client(nom, prenom, email);
 
-        if (mongoQueries.clientExists(email)) {
+        if (clientExists(email)) {
             return null;
         }
         mongoQueries.insertClient(client);
@@ -34,10 +35,10 @@ public class ClientsService {
 
     public boolean update(String oldEmail, String nom, String prenom, String email) {
         Client client = new Client(nom, prenom, email);
-        if (!mongoQueries.clientExists(oldEmail)) {
+        if (!clientExists(oldEmail)) {
             return false;
         }
-        if (!mongoQueries.clientExists(email)) {
+        if (!clientExists(email)) {
             return false;
         }
         mongoQueries.updateClient(oldEmail,client);
@@ -45,7 +46,7 @@ public class ClientsService {
     }
 
     public boolean delete(String email) {
-        if (!mongoQueries.clientExists(email)) {
+        if (!clientExists(email)) {
             return false;
         }
         mongoQueries.deleteClient(email);
@@ -54,17 +55,7 @@ public class ClientsService {
 
 
 
-    public void updateCompte(String email, String nomCompte, double operations) {
-        Client client = mongoQueries.getClient(email);
-        client.updateCompte(nomCompte, operations);
-        mongoQueries.updateClient(email, client);
-    }
 
-    public void deleteCompte(String email, String nomCompte) {
-        Client client = mongoQueries.getClient(email);
-        client.deleteCompte(nomCompte);
-        mongoQueries.updateClient(email, client);
-    }
 
 
 
